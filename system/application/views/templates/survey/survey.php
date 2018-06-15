@@ -25,7 +25,7 @@
       <?php if($question->question_type == 0): ?>
           <div class="carousel-caption d-none d-md-block">                          
             <h1 style="text-shadow: 2px 2px 4px #000000;"><?php echo $question->question_text; ?></h1>
-              <div class="form-group">
+              <div class="form-group" id="options<?php echo $question->id; ?>">
                 <span class="rating" id="ratingentry">
                   <ul>
                     <?php foreach($question->options as $option): ?>

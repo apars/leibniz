@@ -17,7 +17,49 @@ class Survey extends CI_Controller {
     $this->load->view('templates/survey/intro', $data);
     $this->load->view('templates/survey/footer');
   }
+  
+  public function thanks()
+  {
+    $data["active_surveys"] = "";
+    $this->load->view('templates/survey/header');
+    $this->load->view('templates/survey/nav');
+    $this->load->view('templates/survey/thanks', $data);
+    $this->load->view('templates/survey/footer');
+  }
+  
+  public function aquestion($survey = "")
+  {
+    $surveyPrefix = "";
+    $surveyData = $this->survey_model->getSurveyPrefix($survey);
+    $data["valid_survey"] = true;
+    $data["show_questions"] = true;
+    $data["survey_errors"] = false;
 
+    // check if the provided slug was valid
+    if($surveyData != null) {
+
+      // populate survery information
+      $surveyPrefix = $surveyData->prefix;
+      $data["survey_title"] = $surveyData->title;
+      $data["survey_subtitle"] = $surveyData->subtitle;
+    }
+    else {
+      $data["valid_survey"] = false; // display error
+    }
+
+    // check if the survey was submitted
+    if($_SERVER['REQUEST_METHOD'] == 'POST' && $data["valid_survey"]) {
+      $result = $this->survey_model->validateSubmission($surveyPrefix);
+      if(array_key_exists("errors", $result)) {
+        $data["errors"] = $result["errors"];
+        $data["survey_errors"] = true;
+      }
+      else {
+        $data["show_questions"] = false;
+      }
+    }
+  }
+  
   /**
    * renders an error if a survey parameter is not passed
    * as a parameter in the url

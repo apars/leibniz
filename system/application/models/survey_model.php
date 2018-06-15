@@ -199,7 +199,7 @@ $query = $this->db->query('SELECT '
 
     return null;
   } // end function - get survey data
-
+ 
   /*
   validate the survery submission
   param - surveyPrefix of table - example 's1'
@@ -220,11 +220,10 @@ $query = $this->db->query('SELECT '
 //      }
       
       $responses["email"] = $this->config->item('station_name');
-
+//      var_dump($_POST);
       foreach($surveyData as $question) {
 
         if(isset($_POST["ratings" . $question->id]) && !empty($_POST["ratings" . $question->id])) {
-
           // question has a response, set the response attribute & add object to final responses
           // put all responses in an array (incase of multiple responses for a single question)
           if(!is_array($_POST["ratings" . $question->id]))

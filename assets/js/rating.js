@@ -4,13 +4,14 @@
  * and open the template in the editor.
  */
 var clickself = 1;
+var checkedcount = 0;
 $('li').on('click', function(){
     $('li').removeClass('active');
     $('li').removeClass('secondary-active');
     $(this).addClass('active');
     $(this).prevAll().addClass('secondary-active');
     
-    updateSurveyCount();
+    
     if(clickself===1)
     {
       $('#carouselExampleIndicators').carousel('next');
@@ -18,13 +19,42 @@ $('li').on('click', function(){
       //l.click();
     }
     clickself=1;
-    
 });
+
+$('input').on('click', function(){
+    //alert(this.id);
+    //alert(this.name);
+    //alert(this.value);
+    var loc = window.location;
+    var pathName = loc.pathname.substring(loc.pathname.lastIndexOf('/')+1);
+    //alert(pathName);
+    
+    var thekey = this.name;
+    var thevalue = this.value;
+    var thepair = {};
+    thepair[thekey] = thevalue;
+    checkedcount += 1;
+    //postx('../aquestion/' + pathName, thepair);
+    
+    $.post('../aquestion/' + pathName, thepair, function(data){
+             
+            // show the response
+            $('#response').html(data);
+             
+        }).fail(function() {
+         
+            // just in case posting your form failed
+            //alert( "Posting failed." );
+             
+        });
+        updateSurveyCount();
+        return false;
+})
 
 function updateSurveyCount()
 {
     var radioscount =  document.getElementsByName('carindicate').length;
-    var checkedcount = getCheckedCount(radioscount);
+    //var checkedcount = getCheckedCount(radioscount);
     var surveycount = "";
       
     if(document.getElementById("answeredsurvey")!=null)
@@ -34,7 +64,9 @@ function updateSurveyCount()
     if(radioscount===checkedcount)
     {
         //Submit after all questions are answered.
-        if(document.getElementById('mainsurveyform') != null)document.getElementById('mainsurveyform').submit(); return false;
+        //if(document.getElementById('mainsurveyform') != null)document.getElementById('mainsurveyform').submit(); return false;
+        checkedcount = 0;
+        $(location).attr('href','../thanks/');
     }
 }
 
