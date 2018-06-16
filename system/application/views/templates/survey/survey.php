@@ -21,7 +21,7 @@
       <?php else : ?>
         <div class="carousel-item">
       <?php endif; ?>
-          <img class="d-block w-100" src="<?php echo base_url().$this->config->item('img_path').$question->helper_text; ?>" alt="Sample <?php $question->id ?>" style="<?php echo $this->config->item('carousel_fit'); ?>">
+          <img class="d-block w-100" src="<?php echo base_url().$this->config->item('img_path').$question->helper_text; ?>" alt="" style="<?php echo $this->config->item('carousel_fit'); ?>">
       <?php if($question->question_type == 0): ?>
           <div class="carousel-caption d-none d-md-block">                          
             <h1 style="text-shadow: 2px 2px 4px #000000;"><?php echo $question->question_text; ?></h1>
