@@ -5,19 +5,34 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-$config['company_name']                     = 'FSDII';
-$config['posted_by']                        = 'Richard Feynman';
-$config['posted_email']                     = 'rfeynman@fsdii.com';
-$config["carousel_fit"]                     = "height:85vh";/*1280x800=88vh 800x480=78vh 1366x768=85vh*/
-
+/*Set station name of this device.*/
 $config['station_name']                     = 'station1';
+/*Set fix path of attached usb.*/
+$config['usb_path']                         = 'assets/downloads/';
+/*Set path of mysql and mysqldump.*/
+$config['mysql_path']                       = 'D:\xampp\mysql\bin\mysql.exe';
+$config['mysqldump_path']                   = 'D:\xampp\mysql\bin\mysqldump.exe';
+/*Set carousel image relative dimension.*/
+/*1280x800=88vh 800x480=78vh 1366x768=85vh*/
+$config["carousel_fit"]                     = "height:85vh";
+/*Set begin, load database and return button relative dimension.*/
+/*<!--800x480 = 3vw 1280x800 = 5vw -->*/
+$config["begin_button_fit"]                 = "5vw";
+
+$config['company_name']                     = 'FSDII';
+$config['posted_by']                        = 'Pelolito A. Aparece';
+$config['posted_email']                     = 'paparece@lexmark.com';
 $config['thanks_path']                      = 'assets/audios/ty.mp3';
 $config['img_path']                         = 'assets/images/general/';
 $config['main_back']                        = 'assets/images/general/mainback2.jpg';
 $config['button_back']                      = 'assets/images/general/submit.jpg';
-$config['exp_path']                         = 'assets/downloads/data_export_';
-$config['exp_ext']                          = '.csv';
 $config['fav_icon']                         = 'assets/images/general/fav_icon.png';
+$config['back_path']                        = 'assets/downloads/backup/';
+$config['exp_prefix']                       = 'data_export_';
+$config['exp_ext']                          = '.csv';
+$config['db_prefix']                        = 'survey_';
+$config['db_ext']                           = '.sql';
+
 
 //Bootstrap
 $config['bootflat_css']                     = 'assets/css/bootflat.min.css';

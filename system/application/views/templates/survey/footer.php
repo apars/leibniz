@@ -15,8 +15,9 @@
                     <a href="#" class="fab fa-twitter"></a>
                     <a href="#" class="fab fa-google"></a>
                     <a href="#" class="fab fa-instagram"></a> 
-                    <?php if($active_surveys != ""): ?>
+                    <?php if(($active_surveys != "") && ($active_surveys != null)): ?>
                     <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">E</button>
+                    <button type="button" class="btn btn-info btn-sm btn-danger" onclick="redirectOnClick('<?php echo base_url().$this->config->item('loaddb_url').'/'; ?>')" >L</button>
                     <?php endif; ?>
                     </p>
                     

@@ -18,20 +18,49 @@ Rate us: 1 BAD to 5 BEST<br><br></h2>
               
               <button id="demo" type="submit" class="btn btn-lg btn-success pull-center" 
                       onclick="redirectOnClick('<?php echo base_url() . "questions/" . $survey->slug; ?>')" 
-                      style="height:100%;width:100%;font-size:5vw;border-radius: 25px;">
+                      style="height:100%;width:100%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">
                           Begin
               </button>
-              <!--800x480 = 3vw 1280x800 = 5vw -->
+              
               
             <?php endforeach; ?>
           </div>
         <?php else: ?>
-          <div class="alert alert-danger text-center" role="alert">
+        <div class="alert alert-danger text-center" role="alert">
             <strong>
-              UH OH!
+                ACHTUNG! <br>MAINTENANCE MODE<br>
             </strong>
-              It seems there are no surveys available.
+              Proceed with extreme caution.
           </div>
+              <div id="theloaddbbuttons">
+                  <!--800x480 = 3vw 1280x800 = 5vw -->
+                  <div><br><br></div>
+                  <button type="button" class="btn btn-info btn-sm btn btn-lg btn-danger" data-toggle="modal" data-target="#loadDB" style="height:100%;width:100%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">Load Database...</button>
+                  <div><br><br></div>
+                  <button type="button" class="btn btn-info btn-sm btn btn-lg" onclick="redirectOnClick('<?php echo base_url(); ?>')" style="height:100%;width:100%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">Return</button>
+                  <!-- Modal -->
+                    <div id="loadDB" class="modal fade" role="dialog">
+                      <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title">Load Database</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                          </div>
+                          <div class="modal-body">
+                            <p>Please insert USB stick and hit OK button.</p>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-default" onclick="redirect2importDB('<?php echo base_url().'importdb'; ?>')" data-dismiss="modal">OK</button>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+              </div>
+              <div class="loader" id="theloader" style="display: none"></div>
         <?php endif; ?>
           </div>
      </div>

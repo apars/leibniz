@@ -43,7 +43,8 @@ $route['admin'] = "admin/login";
 $route['404_override'] = '';
 $route['questions/(:any)'] = "survey/questions/$1";
 $route['aquestion/(:any)'] = "survey/aquestion/$1";
-$route['thanks']          = "survey/thanks/";
+$route['thanks']           = "survey/thanks/";
+$route['importdb']         = "survey/importdb/";
 
 
 /* End of file routes.php */

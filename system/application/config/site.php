@@ -8,4 +8,5 @@ $config["logo_url"] = "";
 $config["logo_text"] = "Survey App";//"RPi Uiversal Kiosk Machine";
 $config["footer_text"] = "...";//Lexmark International";
 $config["export_url"] = "survey/export";
+$config["loaddb_url"] = "survey/loaddb";
 $config["default_title"] = "Survey";

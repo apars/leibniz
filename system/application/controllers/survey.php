@@ -11,11 +11,52 @@ class Survey extends CI_Controller {
 
   public function index()
   {
-    $data["active_surveys"] = $this->survey_model->getActiveSurveys();
-    $this->load->view('templates/survey/header');
-    $this->load->view('templates/survey/nav');
-    $this->load->view('templates/survey/intro', $data);
-    $this->load->view('templates/survey/footer');
+    try{
+        //$this->load->database();
+        $data["active_surveys"] = $this->survey_model->getActiveSurveys();
+        $this->load->view('templates/survey/header');
+        $this->load->view('templates/survey/nav');
+        $this->load->view('templates/survey/intro', $data);
+        $this->load->view('templates/survey/footer');
+    } catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
+    }
+  }
+  
+  public function loaddb()
+  {
+      $data["active_surveys"] = null;
+      $this->load->view('templates/survey/header');
+      $this->load->view('templates/survey/nav');
+      $this->load->view('templates/survey/intro', $data);
+      $this->load->view('templates/survey/footer');
+  }
+  
+  public function importdb()
+  {
+      try{
+          $dbasedir    = $this->config->item("usb_path").'survey.sql';
+          $mysqlbin = $this->config->item("mysql_path");
+          $mysqldumpbin = $this->config->item("mysqldump_path");
+          
+          $sublocation = $this->config->item("db_prefix").date('m-d-Y_hia').$this->config->item("db_ext");
+          $dbexpfile = $this->config->item("back_path").$sublocation;
+          $shellcommand= $mysqldumpbin." -u ".$this->db->username." -p".$this->db->password." ".$this->db->database." > ".$dbexpfile."\n";
+          exec($shellcommand);
+          
+          $dbexpfile = $this->config->item("usb_path").$sublocation;
+          $shellcommand= $mysqldumpbin." -u ".$this->db->username." -p".$this->db->password." ".$this->db->database." > ".$dbexpfile."\n";
+          exec($shellcommand);
+          
+          if(file_exists($dbasedir))
+          {
+            $shellcommand= $mysqlbin." -u ".$this->db->username." -p".$this->db->password." < ".$dbasedir."\n";
+            exec($shellcommand);
+          }
+          redirect($this.base_url());
+      } catch (Exception $ex) {
+
+      }
   }
   
   public function thanks()
@@ -130,7 +171,7 @@ class Survey extends CI_Controller {
     $this->load->dbutil();
     $this->load->helper('file');
     //var_dump($result);
-    $outfile = $this->config->item("exp_path").date('m-d-Y_hia').$this->config->item("exp_ext");
+    $outfile = $this->config->item("usb_path").$this->config->item("exp_prefix").date('m-d-Y_hia').$this->config->item("exp_ext");
     $csvdata = $this->dbutil->csv_from_result($result);
         if ( ! write_file($outfile, $csvdata))
         {
