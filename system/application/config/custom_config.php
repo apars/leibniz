@@ -12,6 +12,7 @@ $config['usb_path']                         = 'assets/downloads/';
 /*Set path of mysql and mysqldump.*/
 $config['mysql_path']                       = 'D:\xampp\mysql\bin\mysql.exe';
 $config['mysqldump_path']                   = 'D:\xampp\mysql\bin\mysqldump.exe';
+$config['mysqladmin_path']                  = 'D:\xampp\mysql\bin\mysqladmin.exe';
 /*Set carousel image relative dimension.*/
 /*1280x800=88vh 800x480=78vh 1366x768=85vh*/
 $config["carousel_fit"]                     = "height:85vh";
