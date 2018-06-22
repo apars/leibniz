@@ -18,6 +18,7 @@ $('li').on('click', function(){
       //var l = document.getElementById('carnextid');
       //l.click();
     }
+    
     clickself=1;
 });
 
@@ -25,6 +26,8 @@ $('input').on('click', function(){
     //alert(this.id);
     //alert(this.name);
     //alert(this.value);
+    if (this.type != 'checkbox')
+    {
     var loc = window.location;
     var pathName = loc.pathname.substring(loc.pathname.lastIndexOf('/')+1);
     //alert(pathName);
@@ -37,19 +40,50 @@ $('input').on('click', function(){
     //postx('../aquestion/' + pathName, thepair);
     
     $.post('../aquestion/' + pathName, thepair, function(data){
-             
             // show the response
-            $('#response').html(data);
-             
+            $('#response').html(data); 
         }).fail(function() {
-         
             // just in case posting your form failed
-            //alert( "Posting failed." );
-             
+            //alert( "Posting failed." );     
         });
         updateSurveyCount();
         return false;
+    }
+    else
+    {
+        return true;
+    }
+        
 })
+
+function submitCheckbox(thecheckbox)
+{
+    var chkboxes = document.getElementsByName(thecheckbox);
+    var loc = window.location;
+    var pathName = loc.pathname.substring(loc.pathname.lastIndexOf('/')+1);
+    
+    checkedcount += 1;
+    //alert(chkboxes.length);
+    for( i = 0; i < chkboxes.length; i++ ) {
+        if( chkboxes[i].checked ) {
+            var thekey = thecheckbox;
+            var thevalue = chkboxes[i].value;
+            var thepair = {};
+            thepair[thekey] = thevalue;
+    
+            //alert(thekey);
+            //alert(thevalue);
+            $.post('../aquestion/' + pathName, thepair, function(data){            
+                // show the response
+                $('#response').html(data);            
+            }).fail(function() {         
+                // just in case posting your form failed
+                //alert( "Posting failed." );             
+            });
+        }
+    }
+    updateSurveyCount();
+}
 
 function updateSurveyCount()
 {

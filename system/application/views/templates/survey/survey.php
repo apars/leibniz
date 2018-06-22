@@ -40,6 +40,31 @@
               </div>
           </div>
       <?php endif; ?>
+      <?php if($question->question_type == 3): ?>
+          <div class="carousel-caption d-none d-md-block">                          
+            <h1 style="text-shadow: 2px 2px 4px #000000;"><?php echo $question->question_text; ?></h1>
+            <br>
+              <div class="form-group" id="options<?php echo $question->id; ?>">
+                <span class="rating" id="ratingentry">
+                  <div id="checkboxes<?php echo $i+1 ?>" class="checkbox">
+                    <?php foreach($question->options as $option): ?>
+                    <label for="rating_<?php echo $option->id ?>">
+                        <input type="checkbox" style="width:8vw; height:8vh;" name="ratings<?php echo $i+1 ?>" id="rating_<?php echo $option->id ?>" value="<?php echo $option->id ?>" 
+                            <?php echo ((isset($_POST["ratings".$i+1]) && $_POST["ratings".$i+1] == $option->id) ? "checked" : "" ); ?>/>
+                        <span style="color:white;text-shadow: 2px 2px 4px #000000;"><?php echo $option->option_text ?></span>
+                    </label>
+                    <?php endforeach; ?>
+                  </div>
+                </span>
+                  <br><br><br>
+                 <button id="checkboxsubmit<?php echo $option->id ?>" type="button" class="btn btn-lg btn-success pull-center" 
+                      onclick="submitCheckbox('ratings<?php echo $i+1 ?>')" 
+                      style="height:100%;width:50%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">
+                          Submit
+              </button>
+              </div>
+          </div>
+      <?php endif; ?>
         </div>
       <?php $i++ ?>
       <?php endforeach; ?>
