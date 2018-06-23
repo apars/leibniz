@@ -68,6 +68,7 @@ class Survey extends CI_Controller {
   
   public function loaddb()
   {
+      $this->loadConfiguration();
       $data["active_surveys"] = null;
       $configdata = $this->survey_model->getConfiguration();
       $data["thanks_audio"] = $configdata->thanks_audio;
@@ -82,6 +83,7 @@ class Survey extends CI_Controller {
   public function importdb()
   {
       try{
+          $this->loadConfiguration();
           if(isset($_POST["dbfile"]))
           {
             $dbasedir = $_POST["dbfile"];
@@ -124,6 +126,7 @@ class Survey extends CI_Controller {
   
   public function thanks()
   {
+    $this->loadConfiguration();
     $configdata = $this->survey_model->getConfiguration();
     $data["thanks_audio"] = $configdata->thanks_audio;
     $data["main_back"] = $configdata->main_back;
@@ -137,6 +140,7 @@ class Survey extends CI_Controller {
   
   public function aquestion($survey = "")
   {
+    $this->loadConfiguration();
     $surveyPrefix = "";
     $surveyData = $this->survey_model->getSurveyPrefix($survey);
     $data["valid_survey"] = true;
@@ -174,6 +178,7 @@ class Survey extends CI_Controller {
    */
   public function questions($survey = "")
   {
+    $this->loadConfiguration();
     $surveyPrefix = "";
     $surveyData = $this->survey_model->getSurveyPrefix($survey);
     $data["valid_survey"] = true;
@@ -223,6 +228,7 @@ class Survey extends CI_Controller {
   
   public function export($survey = "")
   {
+    $this->loadConfiguration();
     $surveyPrefix = "";
     $surveyData = $this->survey_model->getSurveyPrefix($survey);
     $data["valid_survey"] = true;
