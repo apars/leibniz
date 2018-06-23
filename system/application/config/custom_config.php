@@ -10,7 +10,7 @@ $config['station_name']                     = 'station1';
 /*Set fix path of attached usb.*/
 $config['usb_path']                         = 'assets/downloads/';
 /*Set path of mysql and mysqldump.*/
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+if (DIRECTORY_SEPARATOR == '\\') {
     $config['mysql_path']                       = 'D:\xampp\mysql\bin\mysql.exe';
     $config['mysqldump_path']                   = 'D:\xampp\mysql\bin\mysqldump.exe';
     $config['mysqladmin_path']                  = 'D:\xampp\mysql\bin\mysqladmin.exe';
