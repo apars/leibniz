@@ -71,8 +71,11 @@ class Survey extends CI_Controller {
       $this->loadConfiguration();
       $data["active_surveys"] = null;
       $configdata = $this->survey_model->getConfiguration();
-      $data["thanks_audio"] = $configdata->thanks_audio;
-      $data["main_back"] = $configdata->main_back;
+      if ($configdata != null)
+      {
+        $data["thanks_audio"] = $configdata->thanks_audio;
+        $data["main_back"] = $configdata->main_back;
+      }
       
       $this->load->view('templates/survey/header', $data);
       $this->load->view('templates/survey/nav');
@@ -128,10 +131,13 @@ class Survey extends CI_Controller {
   {
     $this->loadConfiguration();
     $configdata = $this->survey_model->getConfiguration();
-    $data["thanks_audio"] = $configdata->thanks_audio;
-    $data["main_back"] = $configdata->main_back;
-    $data["active_surveys"] = "";
-        
+    if ($configdata != null)
+    {
+        $data["thanks_audio"] = $configdata->thanks_audio;
+        $data["main_back"] = $configdata->main_back;
+        $data["active_surveys"] = "";
+    }
+    
     $this->load->view('templates/survey/header', $data);
     $this->load->view('templates/survey/nav');
     $this->load->view('templates/survey/thanks', $data);
@@ -185,9 +191,12 @@ class Survey extends CI_Controller {
     $data["show_questions"] = true;
     $data["survey_errors"] = false;
     $configdata = $this->survey_model->getConfiguration();
-    $data["thanks_audio"] = $configdata->thanks_audio;
-    $data["main_back"] = $configdata->main_back;
-
+    if ($configdata != null)
+    {
+        $data["thanks_audio"] = $configdata->thanks_audio;
+        $data["main_back"] = $configdata->main_back;
+    }
+    
     // check if the provided slug was valid
     if($surveyData != null) {
 
@@ -236,8 +245,11 @@ class Survey extends CI_Controller {
     $data["survey_errors"] = false;
     $data["export_result"] = "";
     $configdata = $this->survey_model->getConfiguration();
-    $data["thanks_audio"] = $configdata->thanks_audio;
-    $data["main_back"] = $configdata->main_back;
+    if ($configdata != null)
+    {
+        $data["thanks_audio"] = $configdata->thanks_audio;
+        $data["main_back"] = $configdata->main_back;
+    }
 
     // check if the provided slug was valid
     if($surveyData != null) {
