@@ -35,12 +35,34 @@ Rate us: 1 BAD to 5 BEST<br><br></h2>
               <div id="theloaddbbuttons">
                   <!--800x480 = 3vw 1280x800 = 5vw -->
                   <div><br><br></div>
-                  <button type="button" class="btn btn-info btn-sm btn btn-lg btn-danger" data-toggle="modal" data-target="#loadDB" style="height:100%;width:100%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">Load Database...</button>
+                  <button type="button" class="btn btn-info btn-sm btn btn-lg btn-danger" data-toggle="modal" data-target="#loadUSB" style="height:100%;width:100%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">Load Database...</button>
                   <div><br><br></div>
                   <button type="button" class="btn btn-info btn-sm btn btn-lg" onclick="redirectOnClick('<?php echo base_url(); ?>')" style="height:100%;width:100%;font-size:<?php echo $this->config->item('begin_button_fit'); ?>;border-radius: 25px;">Return</button>
-                  <!-- Modal -->
-                    <div id="loadDB" class="modal fade" role="dialog">
+                  <!-- Load USB Modal -->
+                    <div id="loadUSB" class="modal fade" role="dialog">
                       <div class="modal-dialog">
+
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                              <h4 class="modal-title">Insert USB</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                          </div>
+                          <div class="modal-body">
+                            <p>Please insert USB stick and hit OK button.</p>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#loadDBFile" data-dismiss="modal">OK</button>
+                              <!--<button type="button" class="btn btn-default" onclick="redirect2importDB('<?php echo base_url().'importdb'; ?>')" data-dismiss="modal">OK</button>-->
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  <!-- Load Database File Modal -->
+                    <div id="loadDBFile" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
 
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -49,11 +71,24 @@ Rate us: 1 BAD to 5 BEST<br><br></h2>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
 
                           </div>
-                          <div class="modal-body">
-                            <p>Please insert USB stick and hit OK button.</p>
+                          <div class="modal-body" style="height: 250px;">
+                            <p>Please select Database File and hit OK button.</p>
+                            <?php
+                                $flist = glob($this->config->item('usb_path').'*'.$this->config->item('db_ext'));
+                            ?>
+                            <div class="radio" style="display: block">
+                                <?php foreach($flist as $fileitem): ?>
+                                    <label><input type="radio" style="display: inline" name="dbfile" value="<?php echo $fileitem ?>"  
+                                    
+                                                  /> <?php echo basename($fileitem) ?>
+                                    </label><br>
+                                <?php endforeach; ?>
+                                <!--<label><input type="radio" style="display: inline" name="dbfile" value="female"> Female</label><br>
+                                <label><input type="radio" style="display: inline" name="dbfile" value="other"> Other</label>-->
+                            </div>
                           </div>
                           <div class="modal-footer">
-                              <button type="button" class="btn btn-default" onclick="redirect2importDB('<?php echo base_url().'importdb'; ?>')" data-dismiss="modal">OK</button>
+                              <button type="button" class="btn btn-default" onclick="redirect2importDB('<?php echo base_url().'importdb'; ?>')">Load Database</button>
                           </div>
                         </div>
 

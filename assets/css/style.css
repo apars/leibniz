@@ -162,3 +162,12 @@ body, html {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* Important part */
+.modal-dialog{
+    overflow-y: initial !important
+}
+.modal-body{
+    /*height: 250px;*/
+    overflow-y: auto;
+}

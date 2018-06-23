@@ -35,30 +35,41 @@ class Survey extends CI_Controller {
   public function importdb()
   {
       try{
-          $dbasedir    = $this->config->item("usb_path").'survey.sql';
-          $mysqlbin = $this->config->item("mysql_path");
-          $mysqldumpbin = $this->config->item("mysqldump_path");
-          $mysqladminbin = $this->config->item("mysqladmin_path");
-          
-          $sublocation = $this->config->item("db_prefix").date('m-d-Y_hia').$this->config->item("db_ext");
-          $dbexpfile = $this->config->item("back_path").$sublocation;
-          $shellcommand= $mysqldumpbin." -u ".$this->db->username." -p".$this->db->password." ".$this->db->database." > ".$dbexpfile."\n";
-          exec($shellcommand);
-          
-          $dbexpfile = $this->config->item("usb_path").$sublocation;
-          $shellcommand= $mysqldumpbin." -u ".$this->db->username." -p".$this->db->password." ".$this->db->database." > ".$dbexpfile."\n";
-          exec($shellcommand);
-          
-          if(file_exists($dbasedir))
+          if(isset($_POST["dbfile"]))
           {
-            //Drop database only when new db file is available.
-            $shellcommand= $mysqladminbin." -u ".$this->db->username." -p".$this->db->password." -f drop ".$this->db->database."\n";
-            exec($shellcommand);
-            //Import database.
-            $shellcommand= $mysqlbin." -u ".$this->db->username." -p".$this->db->password." < ".$dbasedir."\n";
-            exec($shellcommand);
+            $dbasedir = $_POST["dbfile"];
           }
-          redirect($this.base_url());
+          else
+          {
+            $dbasedir = $this->config->item("usb_path").'survey.sql';
+          }
+          
+          if(isset($_POST["dbfile"]))
+          {
+              $mysqlbin = $this->config->item("mysql_path");
+              $mysqldumpbin = $this->config->item("mysqldump_path");
+              $mysqladminbin = $this->config->item("mysqladmin_path");
+
+              $sublocation = $this->config->item("db_prefix").date('m-d-Y_hia').$this->config->item("db_ext");
+              $dbexpfile = $this->config->item("back_path").$sublocation;
+              $shellcommand= $mysqldumpbin." -u ".$this->db->username." -p".$this->db->password." ".$this->db->database." > ".$dbexpfile."\n";
+              exec($shellcommand);
+
+              $dbexpfile = $this->config->item("usb_path").$sublocation;
+              $shellcommand= $mysqldumpbin." -u ".$this->db->username." -p".$this->db->password." ".$this->db->database." > ".$dbexpfile."\n";
+              exec($shellcommand);
+
+              if(file_exists($dbasedir))
+              {
+                //Drop database only when new db file is available.
+                $shellcommand= $mysqladminbin." -u ".$this->db->username." -p".$this->db->password." -f drop ".$this->db->database."\n";
+                exec($shellcommand);
+                //Import database.
+                $shellcommand= $mysqlbin." -u ".$this->db->username." -p".$this->db->password." < ".$dbasedir."\n";
+                exec($shellcommand);
+              }
+              redirect($this.base_url());
+          }
       } catch (Exception $ex) {
 
       }

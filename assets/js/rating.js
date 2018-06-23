@@ -26,7 +26,7 @@ $('input').on('click', function(){
     //alert(this.id);
     //alert(this.name);
     //alert(this.value);
-    if (this.type != 'checkbox')
+    if (this.type != 'checkbox' && (this.name != 'dbfile'))
     {
     var loc = window.location;
     var pathName = loc.pathname.substring(loc.pathname.lastIndexOf('/')+1);
@@ -42,6 +42,7 @@ $('input').on('click', function(){
     $.post('../aquestion/' + pathName, thepair, function(data){
             // show the response
             $('#response').html(data); 
+            $('#carouselExampleIndicators').carousel('next');
         }).fail(function() {
             // just in case posting your form failed
             //alert( "Posting failed." );     
@@ -75,7 +76,7 @@ function submitCheckbox(thecheckbox)
             //alert(thevalue);
             $.post('../aquestion/' + pathName, thepair, function(data){            
                 // show the response
-                $('#response').html(data);            
+                $('#response').html(data);   
             }).fail(function() {         
                 // just in case posting your form failed
                 //alert( "Posting failed." );             
