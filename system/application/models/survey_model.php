@@ -25,6 +25,20 @@ class Survey_Model extends CI_Model {
   /*
   get all survey's available
   */
+  function getConfiguration() {
+
+    $this->db->select("*")->from("config")->where("id", 1);
+    $query = $this->db->get();
+
+    if($query->num_rows() > 0)
+      return $query->row();
+    else
+      return null;
+  }
+  
+  /*
+  get all survey's available
+  */
   function getActiveSurveys() {
 
     $this->db->select("*")->from("survey_list")->where("enabled", 1);

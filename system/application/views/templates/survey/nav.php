@@ -3,6 +3,6 @@
       <div class="navbar-header">
           <?php echo getNavBrand(); ?>   
     </div>
-    <div class="div-right" style="display: inline-block;"><p id="answeredsurvey" class="footer-text"></p></div>
+    <div class="div-right" style="display: inline-block;"><span id="date_time" class="footer-text"></span><span id="answeredsurvey" class="footer-text"></span></div>
   </div>
 </div>

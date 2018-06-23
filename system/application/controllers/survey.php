@@ -9,12 +9,55 @@ class Survey extends CI_Controller {
       $this->load->model("survey_model");
   }
 
+  public function loadConfiguration()
+  {
+    $configdata = $this->survey_model->getConfiguration();
+    
+    if ($configdata != null)
+    {
+        /*Set station name of this device.*/
+        $this->config->set_item('station_name', $configdata->station_name);
+        /*Set fix path of attached usb.*/
+        $this->config->set_item('usb_path', $configdata->usb_path);
+        /*Set path of mysql and mysqldump.*/
+        $this->config->set_item('mysql_path', $configdata->mysql_path);
+        $this->config->set_item('mysqldump_path', $configdata->mysqldump_path);
+        $this->config->set_item('mysqladmin_path', $configdata->mysqladmin_path);
+        /*Set carousel image relative dimension.*/
+        /*1280x800=88vh 800x480=78vh 1366x768=85vh*/
+        $this->config->set_item("carousel_fit", $configdata->carousel_fit);
+        /*Set begin, load database and return button relative dimension.*/
+        /*<!--800x480 = 3vw 1280x800 = 5vw -->*/
+        $this->config->set_item("begin_button_fit", $configdata->begin_button_fit);
+        $this->config->set_item("begin_text", $configdata->begin_text);
+        $this->config->set_item('company_name', $configdata->company_name);
+        $this->config->set_item('posted_by', $configdata->posted_by);
+        $this->config->set_item('posted_email', $configdata->posted_email);
+        $this->config->set_item('thanks_path', $configdata->thanks_audio);
+        $this->config->set_item('main_back', $configdata->main_back);
+        $this->config->set_item('fav_icon', $configdata->fav_icon);
+    }
+  }
+  
   public function index()
   {
     try{
         //$this->load->database();
         $data["active_surveys"] = $this->survey_model->getActiveSurveys();
-        $this->load->view('templates/survey/header');
+        $this->loadConfiguration();
+        $configdata = $this->survey_model->getConfiguration();
+        
+        if($configdata != null)
+        {
+            $data["thanks_audio"] = $configdata->thanks_audio;
+            $data["main_back"] = $configdata->main_back;
+        }
+        else
+        {
+            $data["main_back"] = file_get_contents($this->config->item('main_back'));
+        }
+        
+        $this->load->view('templates/survey/header', $data);
         $this->load->view('templates/survey/nav');
         $this->load->view('templates/survey/intro', $data);
         $this->load->view('templates/survey/footer');
@@ -26,7 +69,11 @@ class Survey extends CI_Controller {
   public function loaddb()
   {
       $data["active_surveys"] = null;
-      $this->load->view('templates/survey/header');
+      $configdata = $this->survey_model->getConfiguration();
+      $data["thanks_audio"] = $configdata->thanks_audio;
+      $data["main_back"] = $configdata->main_back;
+      
+      $this->load->view('templates/survey/header', $data);
       $this->load->view('templates/survey/nav');
       $this->load->view('templates/survey/intro', $data);
       $this->load->view('templates/survey/footer');
@@ -77,8 +124,12 @@ class Survey extends CI_Controller {
   
   public function thanks()
   {
+    $configdata = $this->survey_model->getConfiguration();
+    $data["thanks_audio"] = $configdata->thanks_audio;
+    $data["main_back"] = $configdata->main_back;
     $data["active_surveys"] = "";
-    $this->load->view('templates/survey/header');
+        
+    $this->load->view('templates/survey/header', $data);
     $this->load->view('templates/survey/nav');
     $this->load->view('templates/survey/thanks', $data);
     $this->load->view('templates/survey/footer');
@@ -128,6 +179,9 @@ class Survey extends CI_Controller {
     $data["valid_survey"] = true;
     $data["show_questions"] = true;
     $data["survey_errors"] = false;
+    $configdata = $this->survey_model->getConfiguration();
+    $data["thanks_audio"] = $configdata->thanks_audio;
+    $data["main_back"] = $configdata->main_back;
 
     // check if the provided slug was valid
     if($surveyData != null) {
@@ -175,6 +229,9 @@ class Survey extends CI_Controller {
     $data["show_questions"] = true;
     $data["survey_errors"] = false;
     $data["export_result"] = "";
+    $configdata = $this->survey_model->getConfiguration();
+    $data["thanks_audio"] = $configdata->thanks_audio;
+    $data["main_back"] = $configdata->main_back;
 
     // check if the provided slug was valid
     if($surveyData != null) {

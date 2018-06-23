@@ -94,7 +94,7 @@ function updateSurveyCount()
       
     if(document.getElementById("answeredsurvey")!=null)
     {
-        document.getElementById("answeredsurvey").innerHTML = surveycount.concat(String(checkedcount),"/",String(radioscount));
+        document.getElementById("answeredsurvey").innerHTML = surveycount.concat(" [",String(checkedcount),"/",String(radioscount),"]");
     }
     if(radioscount===checkedcount)
     {

@@ -10,15 +10,24 @@ $config['station_name']                     = 'station1';
 /*Set fix path of attached usb.*/
 $config['usb_path']                         = 'assets/downloads/';
 /*Set path of mysql and mysqldump.*/
-$config['mysql_path']                       = 'D:\xampp\mysql\bin\mysql.exe';
-$config['mysqldump_path']                   = 'D:\xampp\mysql\bin\mysqldump.exe';
-$config['mysqladmin_path']                  = 'D:\xampp\mysql\bin\mysqladmin.exe';
+if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+    $config['mysql_path']                       = 'D:\xampp\mysql\bin\mysql.exe';
+    $config['mysqldump_path']                   = 'D:\xampp\mysql\bin\mysqldump.exe';
+    $config['mysqladmin_path']                  = 'D:\xampp\mysql\bin\mysqladmin.exe';
+}
+else
+{
+    $config['mysql_path']                       = '/usr/bin/mysql';
+    $config['mysqldump_path']                   = '/usr/bin/mysqldump';
+    $config['mysqladmin_path']                  = '/usr/bin/mysqladmin';
+}
 /*Set carousel image relative dimension.*/
 /*1280x800=88vh 800x480=78vh 1366x768=85vh*/
 $config["carousel_fit"]                     = "height:85vh";
 /*Set begin, load database and return button relative dimension.*/
 /*<!--800x480 = 3vw 1280x800 = 5vw -->*/
 $config["begin_button_fit"]                 = "5vw";
+$config["begin_text"]                       = "";
 
 $config['company_name']                     = 'FSDII';
 $config['posted_by']                        = 'Pelolito A. Aparece';

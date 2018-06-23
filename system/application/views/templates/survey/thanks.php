@@ -1,6 +1,6 @@
 <div class="col-md-12">
   <audio autoplay>
-    <source src="<?php echo base_url().$this->config->item('thanks_path'); ?>" type="audio/mpeg">
+    <source src="data:audio/mpeg;base64,<?php echo base64_encode($thanks_audio); ?>" type="audio/mpeg">
   </audio>
   <h2 class="introtext" style="text-align: center"><br>All Done! <br><br>
     Thank you for completing the survey.<br><br>
