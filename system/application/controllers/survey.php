@@ -76,7 +76,11 @@ class Survey extends CI_Controller {
         $data["thanks_audio"] = $configdata->thanks_audio;
         $data["main_back"] = $configdata->main_back;
       }
-      
+      else
+        {
+            $data["main_back"] = file_get_contents($this->config->item('main_back'));
+        }
+        
       $this->load->view('templates/survey/header', $data);
       $this->load->view('templates/survey/nav');
       $this->load->view('templates/survey/intro', $data);
@@ -137,6 +141,10 @@ class Survey extends CI_Controller {
         $data["main_back"] = $configdata->main_back;
         $data["active_surveys"] = "";
     }
+    else
+        {
+            $data["main_back"] = file_get_contents($this->config->item('main_back'));
+        }
     
     $this->load->view('templates/survey/header', $data);
     $this->load->view('templates/survey/nav');
@@ -196,6 +204,10 @@ class Survey extends CI_Controller {
         $data["thanks_audio"] = $configdata->thanks_audio;
         $data["main_back"] = $configdata->main_back;
     }
+    else
+        {
+            $data["main_back"] = file_get_contents($this->config->item('main_back'));
+        }
     
     // check if the provided slug was valid
     if($surveyData != null) {
@@ -250,6 +262,10 @@ class Survey extends CI_Controller {
         $data["thanks_audio"] = $configdata->thanks_audio;
         $data["main_back"] = $configdata->main_back;
     }
+    else
+        {
+            $data["main_back"] = file_get_contents($this->config->item('main_back'));
+        }
 
     // check if the provided slug was valid
     if($surveyData != null) {
